@@ -93,7 +93,18 @@ Add `--source-tag <tag>` for a release published after 24 September 2026, which 
 
 The [Terraform Verification](https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/actions/workflows/terraform-verification.yml?query=branch%3Amain) workflow runs on every push, pull request, and weekly: `terraform fmt -check`, `terraform init -lockfile=readonly`, `terraform validate`, `tflint`, and actionlint on the workflow itself.
 
-What CI does not do is `apply`: this repository has no AWS account of its own, so the guarantee is that the configuration is well-formed and its providers are exactly the ones tested. Run the plan/apply pipeline examples against your own account for the rest.
+**What the configuration promises is tested, not just parsed.** [`tests/posture.tftest.hcl`](tests/posture.tftest.hcl) plans the configuration with its default variables against mocked providers, with no AWS account and no credentials involved, and makes 16 assertions about what that plan would build: KMS keys rotate, no bucket can be made public, buckets are encrypted with KMS and versioned, the state lock table is encrypted and recoverable to a point in time, and each resource type below it keeps its own promise. [`tests/plant_violations.py`](tests/plant_violations.py) then breaks those promises one at a time on a copy of the configuration, 13 ways listed in [`tests/plants.tsv`](tests/plants.tsv), and fails the run if the test stays green through any of them. Both run in CI on every push.
+
+```bash
+terraform init -backend=false && terraform test
+TERRAFORM_IMAGE=hashicorp/terraform:1.16 python3 tests/plant_violations.py
+```
+
+What CI does not do is `apply`: this repository has no AWS account of its own, so the guarantee is about what the configuration asks AWS for, not about what AWS then does. Run the plan/apply pipeline examples against your own account for the rest.
+
+**What the defaults do not promise, stated rather than hidden.** The test asserts only what the defaults deliver; these are the places they do not, and each is a decision to make before `apply`:
+
+- **The EKS API endpoint is public** (`endpoint_public_access = true`), authenticated but reachable from the internet. Set it to `false` with private access on if your operators work from inside the VPC.
 
 ---
 
