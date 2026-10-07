@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **The default EKS version is one AWS still supports.** `eks_cluster_version`
+  defaulted to `1.25`, which left EKS extended support on 2025-05-01, so a new
+  cluster from the defaults could no longer be created. The default is now
+  `"1.36"`, in standard support until 2027-08-02. The variable is a string:
+  as a number, `1.30` would have reached AWS as `1.3`. If you set it in a
+  `.tfvars` file, quote it.
+
 - **`update.sh` stops on a `.tfvars` it cannot read, before the checkout.** Every value in it used to read as missing; now it names the file, its owner and mode, and changes nothing.
 
 ## [1.2.1] - 2026-10-02
