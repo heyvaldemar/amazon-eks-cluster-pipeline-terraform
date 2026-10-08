@@ -59,9 +59,9 @@ variable "eks_cluster_1_name" {
 }
 
 variable "eks_cluster_version" {
-  description = "The version of EKS to use for the cluster. This should be a float or integer value, such as 1.21 or 1.25."
-  type        = number
-  default     = 1.25
+  description = "The Kubernetes minor version for the EKS cluster, as a quoted string such as \"1.36\". Pick one in EKS standard support: https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html"
+  type        = string
+  default     = "1.36"
 }
 
 # EKS Node Group Variables
