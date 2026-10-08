@@ -7,14 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Fixed
+## [1.3.0] - 2026-10-08
 
-- **The default EKS version is one AWS still supports.** `eks_cluster_version`
-  defaulted to `1.25`, which left EKS extended support on 2025-05-01, so a new
-  cluster from the defaults could no longer be created. The default is now
-  `"1.36"`, in standard support until 2027-08-02. The variable is a string:
-  as a number, `1.30` would have reached AWS as `1.3`. If you set it in a
-  `.tfvars` file, quote it.
+### Changed
+
+- **The default EKS version is now `"1.36"`, one AWS still supports.**
+  `eks_cluster_version` defaulted to `1.25`, which left EKS extended support on
+  2025-05-01, so a new cluster from the defaults could no longer be created.
+  `1.36` is in standard support until 2027-08-02. The variable is now a
+  string: as a number, `1.30` would have reached AWS as `1.3`. If you set it
+  in a `.tfvars` file, quote it.
+
+  **If your cluster was built from the default and you never set
+  `eks_cluster_version`,** this release changes the version your next plan
+  asks for. EKS upgrades one minor version at a time and never downgrades.
+  Before you apply, set `eks_cluster_version` in your `.tfvars` to the version
+  the cluster runs today (`aws eks describe-cluster --name <name> --query
+  cluster.version --output text`), quoted, and move up from there one minor
+  version per apply.
+
+  **Not verified on 1.36:** the EBS CSI driver Helm chart stays pinned at
+  `2.18.0` (`helm_ebs_csi_driver_version`). Its compatibility with Kubernetes
+  1.36 has not been tested. Check it before you rely on it, or set a current
+  chart version.
+
+### Fixed
 
 - **`update.sh` stops on a `.tfvars` it cannot read, before the checkout.** Every value in it used to read as missing; now it names the file, its owner and mode, and changes nothing.
 
