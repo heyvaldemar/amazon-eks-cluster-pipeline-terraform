@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **The default EKS version is now `"1.37"`.** EKS released 1.37 on 2026-10-01; it is in standard support until 2027-12-01. A cluster built from the previous default runs 1.36: set `eks_cluster_version = "1.36"` in your `.tfvars` before you plan, then move to `"1.37"` in its own apply. EKS upgrades one minor version at a time.
+- **The EBS CSI driver chart is now `2.66.1`** (`helm_ebs_csi_driver_version`), from `2.18.0`. The old pin predated every Kubernetes version EKS still supports. This release is checked with `terraform validate`, tflint and `terraform test`; it has not been applied to a cluster. On an existing cluster, read the [driver's changelog](https://github.com/kubernetes-sigs/aws-ebs-csi-driver/blob/master/CHANGELOG.md) for the versions in between before you apply.
+
+### Added
+
+- **The weekly freshness check now reads `helm_release` pins.** A chart installed by Terraform had no check of its own; the job compares each one with its chart repository and fails when upstream has moved on.
+
 ## [1.3.0] - 2026-10-08
 
 ### Changed

@@ -59,9 +59,9 @@ variable "eks_cluster_1_name" {
 }
 
 variable "eks_cluster_version" {
-  description = "The Kubernetes minor version for the EKS cluster, as a quoted string such as \"1.36\". Pick one in EKS standard support: https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html"
+  description = "The Kubernetes minor version for the EKS cluster, as a quoted string such as \"1.37\". Pick one in EKS standard support: https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html"
   type        = string
-  default     = "1.36"
+  default     = "1.37"
 }
 
 # EKS Node Group Variables
@@ -145,7 +145,7 @@ variable "dynamodb_terraform_state_lock_1_billing_mode" {
 variable "helm_ebs_csi_driver_version" {
   description = "The version of the AWS EBS CSI Driver Helm chart to deploy"
   type        = string
-  default     = "2.18.0"
+  default     = "2.66.1"
 }
 
 variable "helm_timeout_seconds" {

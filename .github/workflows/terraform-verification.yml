@@ -136,6 +136,39 @@ jobs:
           EOF
           exit "$status"
 
+      - name: Compare every helm_release chart with its chart repository
+        # A chart installed by Terraform is a pin like any other, and no other
+        # check here reads it: the provider comparison above sees providers,
+        # Dependabot sees Actions. The EBS CSI chart sat at 2.18.0 while
+        # upstream released forty-eight minor versions after it (2026-10-11).
+        # Runs even when the comparison above failed.
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import glob, re, sys, urllib.request
+          text = "\n".join(open(f).read() for f in sorted(glob.glob("*.tf")))
+          defaults = dict(re.findall(r'variable\s+"([^"]+)"\s*\{[^}]*?default\s*=\s*"([^"]+)"', text, re.S))
+          status = 0
+          for block in re.findall(r'resource\s+"helm_release"\s+"[^"]+"\s*\{(.*?)\n\}', text, re.S):
+              field = lambda k: (re.search(r'^\s*%s\s*=\s*(\S+)' % k, block, re.M) or [None, ""])[1].strip('"')
+              repo, chart, version = field("repository"), field("chart"), field("version")
+              if version.startswith("var."):
+                  version = defaults.get(version[4:], "")
+              index = urllib.request.urlopen(repo.rstrip("/") + "/index.yaml", timeout=60).read().decode()
+              entry = re.search(r'^  %s:\n(.*?)(?=^  [A-Za-z0-9]|^\S|\Z)' % re.escape(chart), index, re.S | re.M)
+              versions = re.findall(r'^    version: "?(\d+\.\d+\.\d+)"?$', entry.group(1), re.M) if entry else []
+              latest = max(versions, key=lambda v: tuple(map(int, v.split("."))), default=None)
+              if latest is None:
+                  print("::error::%s: no release of chart %s found at %s; the pin %s is unchanged" % (chart, chart, repo, version))
+                  status = 1
+              elif tuple(map(int, latest.split("."))) > tuple(map(int, version.split("."))):
+                  print("::error::helm_release %s is behind: pinned %s, latest is %s" % (chart, version, latest))
+                  status = 1
+              else:
+                  print("helm_release %s %s is the latest release" % (chart, version))
+          sys.exit(status)
+          PY
+
       - name: Compare the pinned CI images against what their tags resolve to now
         # Runs even when the comparison above failed, so one run reports every
         # pin that fell behind instead of one per day.
