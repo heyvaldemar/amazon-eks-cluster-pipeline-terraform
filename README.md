@@ -6,6 +6,8 @@
 
 This repository deploys an Amazon EKS cluster with a managed node group in a purpose-built VPC, the IAM roles it needs, the EBS CSI driver installed through Helm, and a self-provisioned Terraform state backend. Flat, numbered `.tf` files, no modules to chase, every provider locked to an exact build.
 
+This is the small starting point: one cluster, one node group, one storage driver. For the platform that runs on a cluster afterwards (Argo CD for everything on it, admission the API server enforces itself, tenants confined to their namespaces, backups proven by restores, Karpenter and Pod Identity), see [aws-eks-reference-platform](https://github.com/heyvaldemar/aws-eks-reference-platform), which is tested daily on kind.
+
 ## What it creates
 
 | Area | Resources |

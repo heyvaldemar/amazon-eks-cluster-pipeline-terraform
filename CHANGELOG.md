@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-_(no unreleased changes yet)_
+### Added
+
+- **The README points at the platform that runs on a cluster afterwards**, [aws-eks-reference-platform](https://github.com/heyvaldemar/aws-eks-reference-platform): Argo CD, admission the API server enforces, tenants, backups proven by restores, tested daily on kind.
 
 ## [1.4.0] - 2026-10-12
 
