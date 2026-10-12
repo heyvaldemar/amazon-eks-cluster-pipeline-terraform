@@ -7,11 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+_(no unreleased changes yet)_
+
+## [1.4.0] - 2026-10-12
+
 ### Changed
 
 - **The default EKS version is now `"1.37"`.** EKS released 1.37 on 2026-10-01; it is in standard support until 2027-12-01. A cluster built from the previous default runs 1.36: set `eks_cluster_version = "1.36"` in your `.tfvars` before you plan, then move to `"1.37"` in its own apply. EKS upgrades one minor version at a time.
 - **The EBS CSI driver chart is now `2.66.1`** (`helm_ebs_csi_driver_version`), from `2.18.0`. The old pin predated every Kubernetes version EKS still supports. This release is checked with `terraform validate`, tflint and `terraform test`; it has not been applied to a cluster. On an existing cluster, read the [driver's changelog](https://github.com/kubernetes-sigs/aws-ebs-csi-driver/blob/master/CHANGELOG.md) for the versions in between before you apply.
-
 - **The AWS provider is now `~> 6.68.0`**, from `6.67.0`, with the lockfile hashes for Linux and macOS on both architectures. The freshness check reported the lag on 2026-10-12.
 
 ### Added
@@ -137,7 +140,11 @@ First semver release. Brings this configuration to the fleet standard.
   created, what must be changed before the first apply, and what CI
   does and does not prove.
 
-[Unreleased]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.1.5...HEAD
+[Unreleased]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.4.0...HEAD
+[1.4.0]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.3.0...v1.4.0
+[1.3.0]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.2.1...v1.3.0
+[1.2.1]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.2.0...v1.2.1
+[1.2.0]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.1.5...v1.2.0
 [1.1.5]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.1.4...v1.1.5
 [1.1.4]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.1.3...v1.1.4
 [1.1.3]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.1.2...v1.1.3
