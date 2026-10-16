@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+_(no unreleased changes yet)_
+
+## [1.4.1] - 2026-10-16
+
 ### Changed
 
 - **`hashicorp/aws` 6.68.0 → 6.69.1.** The constraint and the lockfile moved together, and the lockfile carries all four platforms it covered before. `terraform validate` ran against the new provider before this landed — that is what catches an argument it renamed or removed.
@@ -150,7 +154,8 @@ First semver release. Brings this configuration to the fleet standard.
   created, what must be changed before the first apply, and what CI
   does and does not prove.
 
-[Unreleased]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.4.0...HEAD
+[Unreleased]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.4.1...HEAD
+[1.4.1]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.2.1...v1.3.0
 [1.2.1]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.2.0...v1.2.1
