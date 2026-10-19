@@ -145,7 +145,7 @@ variable "dynamodb_terraform_state_lock_1_billing_mode" {
 variable "helm_ebs_csi_driver_version" {
   description = "The version of the AWS EBS CSI Driver Helm chart to deploy"
   type        = string
-  default     = "2.66.1"
+  default     = "2.67.0"
 }
 
 variable "helm_timeout_seconds" {

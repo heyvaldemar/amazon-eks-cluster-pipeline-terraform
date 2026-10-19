@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-_(no unreleased changes yet)_
+### Changed
+
+- **The EBS CSI driver chart is now `2.67.0`** (`helm_ebs_csi_driver_version`), from `2.66.1`: driver `v1.67.0` and new builds of its sidecars. The driver now refuses a `StorageClass` whose `allowedTopologies` names neither an Availability Zone nor an AZ ID, which it used to accept. This template creates no `StorageClass`; if you added one with a topology, check it names a zone before you apply. The freshness check reported the lag on 2026-10-19, and fleet triage passed over it because it moves providers, not charts.
 
 ## [1.4.1] - 2026-10-16
 
