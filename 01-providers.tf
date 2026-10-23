@@ -36,14 +36,14 @@ In this way, the "terraform.tfstate" file will be stored in an S3 bucket and Dyn
       source = "hashicorp/aws"
 
       # Provider versions
-      version = "~> 6.69.1"
+      version = "~> 6.70.0"
     }
 
     tls = {
       source = "hashicorp/tls"
 
       # Provider versions
-      version = "~> 4.4.1"
+      version = "~> 4.4.2"
     }
 
     random = {
