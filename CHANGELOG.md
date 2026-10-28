@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+_(no unreleased changes yet)_
+
+## [1.4.3] - 2026-10-28
+
 ### Security
 
 - **The EBS CSI driver chart is now `2.67.2`** (`helm_ebs_csi_driver_version`), from `2.67.0`. Chart `2.67.1` ships driver `v1.67.1`, which fixes CVE-2026-111943. It came from the compromise of a trusted intermediate CA, whose keys could issue a forged certificate for an endpoint such as the AWS API. The chart's own notes ask every user to upgrade right away. `2.67.2` moves the driver to `v1.67.2` and rebuilds its sidecars. Clusters already running get it on the next `terraform apply`.
@@ -169,7 +173,8 @@ First semver release. Brings this configuration to the fleet standard.
   created, what must be changed before the first apply, and what CI
   does and does not prove.
 
-[Unreleased]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.4.2...HEAD
+[Unreleased]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.4.3...HEAD
+[1.4.3]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.4.2...v1.4.3
 [1.4.2]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.4.1...v1.4.2
 [1.4.1]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.3.0...v1.4.0
