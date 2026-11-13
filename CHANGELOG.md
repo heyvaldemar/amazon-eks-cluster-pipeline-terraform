@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+_(no unreleased changes yet)_
+
+## [1.4.7] - 2026-11-13
+
 ### Changed
 
 - **The EBS CSI driver chart is now `2.68.0`** (`helm_ebs_csi_driver_version`), from `2.67.2`: driver `v1.68.0` and new builds of its sidecars. On Kubernetes 1.30 and later (this template defaults to 1.37) the chart also installs a `ValidatingAdmissionPolicy`, `ebs-csi-node`, by default. It lets the node pods' service account do one thing to a Node: remove the `ebs.csi.aws.com/agent-not-ready` taint from the Node its own pod runs on. Any other edit it makes to a Node is refused. Rendered with `helm template` for Kubernetes 1.37 and 1.29, the policy and its binding are the only change next to the images, and below 1.30 the chart renders neither. Clusters already running get both on the next `terraform apply`. Checked with `terraform validate`, tflint and `terraform test`; it has not been applied to a cluster.
@@ -205,7 +209,8 @@ First semver release. Brings this configuration to the fleet standard.
   created, what must be changed before the first apply, and what CI
   does and does not prove.
 
-[Unreleased]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.4.6...HEAD
+[Unreleased]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.4.7...HEAD
+[1.4.7]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.4.6...v1.4.7
 [1.4.6]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.4.5...v1.4.6
 [1.4.5]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.4.4...v1.4.5
 [1.4.4]: https://github.com/heyvaldemar/amazon-eks-cluster-pipeline-terraform/compare/v1.4.3...v1.4.4
